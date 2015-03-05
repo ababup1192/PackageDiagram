@@ -4,7 +4,6 @@
     <list default="true" id="e8c081ef-4fd4-4f22-ad63-111d64c773ad" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$USER_HOME$/.vimrc" afterPath="$USER_HOME$/.vimrc" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/.zshrc" afterPath="$USER_HOME$/.zshrc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/org/ababup1192/PackageDiagramMain.scala" afterPath="$PROJECT_DIR$/src/main/scala/org/ababup1192/PackageDiagramMain.scala" />
     </list>
     <ignored path="PackageDiagram.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,10 +31,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="PackageDiagramMain.scala" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PackageDiagramMain.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/org/ababup1192/PackageDiagramMain.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.42159384" vertical-offset="47" max-vertical-offset="825">
+            <state vertical-scroll-proportion="0.0" vertical-offset="47" max-vertical-offset="825">
               <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
               <folding>
                 <element signature="e#24#64#0" expanded="true" />
@@ -44,11 +43,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DraggableRectangle.scala" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DraggableRectangle.scala" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/org/ababup1192/DraggableRectangle.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1065">
-              <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.78791773" vertical-offset="287" max-vertical-offset="1065">
+              <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
               <folding>
                 <element signature="e#24#49#0" expanded="true" />
               </folding>
@@ -586,12 +585,12 @@
       <option name="number" value="Default" />
       <updated>1425478174039</updated>
       <workItem from="1425478176519" duration="8076000" />
-      <workItem from="1425517672840" duration="8067000" />
+      <workItem from="1425517672840" duration="8109000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16143000" />
+    <option name="totallyTimeSpent" value="16185000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -774,22 +773,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/org/ababup1192/DraggableRectangle.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/org/ababup1192/PackageDiagramMain.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1065">
-          <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="47" max-vertical-offset="825">
+          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding>
-            <element signature="e#24#49#0" expanded="true" />
+            <element signature="e#24#64#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/org/ababup1192/PackageDiagramMain.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/org/ababup1192/DraggableRectangle.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.42159384" vertical-offset="47" max-vertical-offset="825">
-          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.78791773" vertical-offset="287" max-vertical-offset="1065">
+          <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
           <folding>
-            <element signature="e#24#64#0" expanded="true" />
+            <element signature="e#24#49#0" expanded="true" />
           </folding>
         </state>
       </provider>
