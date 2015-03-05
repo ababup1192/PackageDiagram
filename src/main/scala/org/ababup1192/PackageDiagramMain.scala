@@ -6,7 +6,7 @@ import javafx.scene.{Node, input => jfxsi}
 import scalafx.Includes._
 import scalafx.application.JFXApp
 import scalafx.event.ActionEvent
-import scalafx.scene.Scene
+import scalafx.scene.{Group, Scene}
 import scalafx.scene.control.{ContextMenu, MenuItem}
 import scalafx.scene.input.MouseEvent
 import scalafx.scene.paint.Color
@@ -31,6 +31,15 @@ object PackageDiagramMain extends JFXApp {
       }
     }
   }
+
+  val group = new Group()
+
+  // group.children.add(new DraggableRectangle(100d, 100d, Color.LightBlue))
+  // group.children.add(new DraggableRectangle(200d, 200d, Color.OrangeRed))
+
+  // sceneContent += group
+  sceneContent += new DraggableRectangle(100d, 100d, Color.LightBlue)
+  sceneContent += new DraggableRectangle(200d, 200d, Color.OrangeRed)
 
   def createMenu(window: Window, x: Double, y: Double) = new ContextMenu(
     new MenuItem("LightBlue Rectangle") {
