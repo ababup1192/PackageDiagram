@@ -23,7 +23,6 @@ object PackageDiagramMain extends JFXApp {
     scene = new Scene {
       sceneContent = content
       onMousePressed = (mouseEvent: MouseEvent) => {
-        // println(s"Mouse Pressed: x = ${mouseEvent.sceneX}, y = ${mouseEvent.sceneY}")
         if (mouseEvent.getButton == jfxsi.MouseButton.SECONDARY) {
           val rightClickMenu = createMenu(stage, mouseEvent.sceneX, mouseEvent.sceneY)
 

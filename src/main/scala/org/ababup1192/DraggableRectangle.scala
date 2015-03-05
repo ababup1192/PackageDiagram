@@ -8,6 +8,7 @@ import scalafx.scene.paint.Color
 import scalafx.scene.shape.Rectangle
 
 class DraggableRectangle(val initX: Double, val initY: Double, color: Color) extends Rectangle {
+
   private[this] val rectangleX = new DoubleProperty
   private[this] val rectangleY = new DoubleProperty
 
@@ -36,7 +37,6 @@ class DraggableRectangle(val initX: Double, val initY: Double, color: Color) ext
 
     rectangleDragAnchorX = mouseEvent.sceneX
     rectangleDragAnchorY = mouseEvent.sceneY
-    // println(s"mousePressed: x = $initRectangleTranslateX, y = $initRectangleTranslateY")
   }
   onMouseDragged = (mouseEvent: MouseEvent) => {
     val dragX = mouseEvent.sceneX - rectangleDragAnchorX
@@ -44,12 +44,22 @@ class DraggableRectangle(val initX: Double, val initY: Double, color: Color) ext
 
     rectangleX() = initRectangleTranslateX + dragX
     rectangleY() = initRectangleTranslateY + dragY
-    // println(s"dragged: x = ${rectangleX()}, y = ${rectangleY()}")
+    val children = parent.value.getScene.getChildren.filter(_ != this.delegate)
+    children.foreach {
+      case rect: javafx.scene.shape.Rectangle =>
+        if (rect.getBoundsInParent.intersects(this.delegate.getBoundsInParent)) {
+          println("重なった")
+        } else{
+          println("重なってない")
+        }
+    }
   }
 
   onMouseReleased = (mouseEvent: MouseEvent) => {
     println(s"released: x = ${mouseEvent.sceneX}, y = ${mouseEvent.sceneY}")
 
+
   }
+
 }
 
