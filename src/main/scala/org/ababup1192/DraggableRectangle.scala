@@ -45,23 +45,26 @@ class DraggableRectangle(val initX: Double, val initY: Double, initColor: Color)
     fill = initColor
     this.toFront()
 
-    reverse()
+    //reverse()
   }
   onMouseDragged = (mouseEvent: MouseEvent) => {
     val dragX = mouseEvent.sceneX - rectangleDragAnchorX
     val dragY = mouseEvent.sceneY - rectangleDragAnchorY
 
-    val sibling = parent.value.getScene.getChildren
+    if (parent.value.getStyleClass.toString == "root") {
+      rectangleX() = initRectangleTranslateX + dragX
+      rectangleY() = initRectangleTranslateY + dragY
+
+      // reverse()
+    }
+
     /* sibling.foreach { node =>
       node.translateX() = initRectangleTranslateX + dragX
       node.translateY() = initRectangleTranslateY + dragY
     }*/
 
 
-    rectangleX() = initRectangleTranslateX + dragX
-    rectangleY() = initRectangleTranslateY + dragY
-
-    reverse()
+    // reverse()
   }
 
   onMouseReleased = (mouseEvent: MouseEvent) => {
