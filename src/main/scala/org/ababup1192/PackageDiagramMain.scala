@@ -1,57 +1,50 @@
 package org.ababup1192
 
+import javafx.collections.ObservableList
+import javafx.scene.{Node, input => jfxsi}
+
 import scalafx.Includes._
 import scalafx.application.JFXApp
-import scalafx.beans.property.DoubleProperty
+import scalafx.event.ActionEvent
+import scalafx.scene.Scene
+import scalafx.scene.control.{ContextMenu, MenuItem}
 import scalafx.scene.input.MouseEvent
 import scalafx.scene.paint.Color
-import scalafx.scene.shape.Rectangle
-import scalafx.scene.{Cursor, Scene}
+import scalafx.stage.Window
 
 object PackageDiagramMain extends JFXApp {
 
-  val rectangleX = new DoubleProperty
-  val rectangleY = new DoubleProperty
-
-  var rectangleDragAnchorX: Double = _
-  var rectangleDragAnchorY: Double = _
-
-  var initRectangleTranslateX: Double = _
-  var initRectangleTranslateY: Double = _
-
-  val rectangle = new Rectangle {
-    x = 25
-    y = 40
-    width = 100
-    height = 100
-    fill = Color.LightBlue
-    cursor = Cursor.HAND
-    translateX <== rectangleX
-    translateY <== rectangleY
-    onMousePressed = (mouseEvent: MouseEvent) => {
-      initRectangleTranslateX = translateX()
-      initRectangleTranslateY = translateY()
-
-      rectangleDragAnchorX = mouseEvent.sceneX
-      rectangleDragAnchorY = mouseEvent.sceneY
-      println(s"mousePressed: x = $initRectangleTranslateX, y = $initRectangleTranslateY")
-    }
-    onMouseDragged = (mouseEvent: MouseEvent) => {
-      val dragX = mouseEvent.sceneX - rectangleDragAnchorX
-      val dragY = mouseEvent.sceneY - rectangleDragAnchorY
-
-      rectangleX() = initRectangleTranslateX + dragX
-      rectangleY() = initRectangleTranslateY + dragY
-      println(s"dragged: x = ${rectangleX()}, y = ${rectangleY()}")
-    }
-  }
+  var sceneContent: ObservableList[Node] = _
 
   stage = new JFXApp.PrimaryStage {
     title.value = "Package Diagram"
     width = 600
     height = 450
     scene = new Scene {
-      content = rectangle
+      sceneContent = content
+      onMousePressed = (mouseEvent: MouseEvent) => {
+        // println(s"Mouse Pressed: x = ${mouseEvent.sceneX}, y = ${mouseEvent.sceneY}")
+        if (mouseEvent.getButton == jfxsi.MouseButton.SECONDARY) {
+          val rightClickMenu = createMenu(stage, mouseEvent.sceneX, mouseEvent.sceneY)
+
+          rightClickMenu.show(stage, mouseEvent.sceneX, mouseEvent.sceneY)
+        }
+      }
     }
   }
+
+  def createMenu(window: Window, x: Double, y: Double) = new ContextMenu(
+    new MenuItem("LightBlue Rectangle") {
+      onAction = {
+        actionEvent: ActionEvent =>
+          sceneContent += new DraggableRectangle(x, y, Color.LightBlue)
+      }
+    },
+    new MenuItem("OrangeRed Rectangle") {
+      onAction = {
+        actionEvent: ActionEvent =>
+          sceneContent += new DraggableRectangle(x, y, Color.OrangeRed)
+      }
+    }
+  )
 }
