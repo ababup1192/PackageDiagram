@@ -3,14 +3,15 @@ package org.ababup1192
 import javafx.collections.ObservableList
 import javafx.scene.{Node, input => jfxsi}
 
+import org.ababup1192.util.Draggable
+
 import scalafx.Includes._
 import scalafx.application.JFXApp
-import scalafx.beans.property.DoubleProperty
 import scalafx.event.ActionEvent
 import scalafx.scene.control.{ContextMenu, MenuItem}
 import scalafx.scene.input.MouseEvent
 import scalafx.scene.paint.Color
-import scalafx.scene.{Cursor, Group, Scene}
+import scalafx.scene.{Group, Scene}
 import scalafx.stage.Window
 
 object PackageDiagramMain extends JFXApp {
@@ -33,41 +34,7 @@ object PackageDiagramMain extends JFXApp {
     }
   }
 
-  val group = new Group {
-    private[this] val groupX = new DoubleProperty
-    private[this] val groupY = new DoubleProperty
-
-    private[this] var groupDragAnchorX: Double = _
-    private[this] var groupDragAnchorY: Double = _
-
-    private[this] var initGroupTranslateX: Double = _
-    private[this] var initGroupTranslateY: Double = _
-
-    cursor = Cursor.HAND
-
-    translateX <== groupX
-    translateY <== groupY
-
-    onMousePressed = (mouseEvent: MouseEvent) => {
-
-      initGroupTranslateX = translateX()
-      initGroupTranslateY = translateY()
-
-      groupDragAnchorX = mouseEvent.sceneX
-      groupDragAnchorY = mouseEvent.sceneY
-
-      // set the init color and front
-      this.toFront()
-    }
-    onMouseDragged = (mouseEvent: MouseEvent) => {
-      val dragX = mouseEvent.sceneX - groupDragAnchorX
-      val dragY = mouseEvent.sceneY - groupDragAnchorY
-
-      groupX() = initGroupTranslateX + dragX
-      groupY() = initGroupTranslateY + dragY
-
-    }
-  }
+  val group = new Group with Draggable
 
   group.children.add(new DraggableRectangle(100d, 100d, Color.LightBlue))
   group.children.add(new DraggableRectangle(300d, 100d, Color.OrangeRed))

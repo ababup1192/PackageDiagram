@@ -6,14 +6,14 @@ import scalafx.scene.input.MouseEvent
 import scalafx.scene.{Cursor, Node}
 
 trait Draggable extends Node {
-  private[this] val translateRefX = new DoubleProperty
-  private[this] val translateRefY = new DoubleProperty
+  protected val translateRefX = new DoubleProperty
+  protected val translateRefY = new DoubleProperty
 
-  private[this] var dragAnchorX: Double = _
-  private[this] var dragAnchorY: Double = _
+  protected var dragAnchorX: Double = _
+  protected var dragAnchorY: Double = _
 
-  private[this] var initTranslateX: Double = _
-  private[this] var initTranslateY: Double = _
+  protected var initTranslateX: Double = _
+  protected var initTranslateY: Double = _
 
   cursor = Cursor.HAND
 
@@ -21,14 +21,12 @@ trait Draggable extends Node {
   translateY <== translateRefY
 
   onMousePressed = (mouseEvent: MouseEvent) => {
-
     initTranslateX = translateX()
     initTranslateY = translateY()
 
     dragAnchorX = mouseEvent.sceneX
     dragAnchorY = mouseEvent.sceneY
 
-    // set the init color and front
     this.toFront()
   }
   onMouseDragged = (mouseEvent: MouseEvent) => {

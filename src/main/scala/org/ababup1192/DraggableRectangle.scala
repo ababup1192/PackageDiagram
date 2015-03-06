@@ -1,23 +1,14 @@
 package org.ababup1192
 
+import org.ababup1192.util.Draggable
+
 import scalafx.Includes._
-import scalafx.beans.property.DoubleProperty
 import scalafx.scene.Cursor
 import scalafx.scene.input.MouseEvent
 import scalafx.scene.paint.Color
 import scalafx.scene.shape.Rectangle
 
-class DraggableRectangle(val initX: Double, val initY: Double, initColor: Color) extends Rectangle {
-
-  private[this] val rectangleX = new DoubleProperty
-  private[this] val rectangleY = new DoubleProperty
-
-  private[this] var rectangleDragAnchorX: Double = _
-  private[this] var rectangleDragAnchorY: Double = _
-
-  private[this] var initRectangleTranslateX: Double = _
-  private[this] var initRectangleTranslateY: Double = _
-
+class DraggableRectangle(val initX: Double, val initY: Double, initColor: Color) extends Rectangle with Draggable {
   id = s"${hashCode()}:${initColor.toString()}"
 
   // Initial Position
@@ -30,35 +21,32 @@ class DraggableRectangle(val initX: Double, val initY: Double, initColor: Color)
   fill = initColor
   cursor = Cursor.HAND
 
-  translateX <== rectangleX
-  translateY <== rectangleY
+  onMousePressed = {
+    (mouseEvent: MouseEvent) =>
+      initTranslateX = translateX()
+      initTranslateY = translateY()
 
-  onMousePressed = (mouseEvent: MouseEvent) => {
+      dragAnchorX = mouseEvent.sceneX
+      dragAnchorY = mouseEvent.sceneY
 
-    initRectangleTranslateX = translateX()
-    initRectangleTranslateY = translateY()
+      this.toFront()
 
-    rectangleDragAnchorX = mouseEvent.sceneX
-    rectangleDragAnchorY = mouseEvent.sceneY
-
-    // set the init color and front
-    fill = initColor
-    this.toFront()
-
-    invertColor()
+      fill = initColor
+      invertColor()
   }
   onMouseDragged = (mouseEvent: MouseEvent) => {
-    val dragX = mouseEvent.sceneX - rectangleDragAnchorX
-    val dragY = mouseEvent.sceneY - rectangleDragAnchorY
 
     // Move a rectangle when this object is single.
     if (parent.value.getStyleClass.toString == "root") {
-      rectangleX() = initRectangleTranslateX + dragX
-      rectangleY() = initRectangleTranslateY + dragY
+      val dragX = mouseEvent.sceneX - dragAnchorX
+      val dragY = mouseEvent.sceneY - dragAnchorY
 
-      invertColor()
+      translateRefX() = initTranslateX + dragX
+      translateRefY() = initTranslateY + dragY
+
     }
 
+    invertColor()
   }
 
   onMouseReleased = (mouseEvent: MouseEvent) => {
