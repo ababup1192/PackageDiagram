@@ -4,7 +4,6 @@
     <list default="true" id="e8c081ef-4fd4-4f22-ad63-111d64c773ad" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$USER_HOME$/.vimrc" afterPath="$USER_HOME$/.vimrc" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/.zshrc" afterPath="$USER_HOME$/.zshrc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/org/ababup1192/DraggableRectangle.scala" afterPath="$PROJECT_DIR$/src/main/scala/org/ababup1192/DraggableRectangle.scala" />
     </list>
     <ignored path="PackageDiagram.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -623,12 +622,12 @@
       <workItem from="1425535823957" duration="10616000" />
       <workItem from="1425547684062" duration="309000" />
       <workItem from="1425555886101" duration="6922000" />
-      <workItem from="1425603456498" duration="7923000" />
+      <workItem from="1425603456498" duration="8013000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="42018000" />
+    <option name="totallyTimeSpent" value="42108000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
