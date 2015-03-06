@@ -45,26 +45,20 @@ class DraggableRectangle(val initX: Double, val initY: Double, initColor: Color)
     fill = initColor
     this.toFront()
 
-    //reverse()
+    invertColor()
   }
   onMouseDragged = (mouseEvent: MouseEvent) => {
     val dragX = mouseEvent.sceneX - rectangleDragAnchorX
     val dragY = mouseEvent.sceneY - rectangleDragAnchorY
 
+    // when this object is a single rectangle.
     if (parent.value.getStyleClass.toString == "root") {
       rectangleX() = initRectangleTranslateX + dragX
       rectangleY() = initRectangleTranslateY + dragY
 
-      // reverse()
+      invertColor()
     }
 
-    /* sibling.foreach { node =>
-      node.translateX() = initRectangleTranslateX + dragX
-      node.translateY() = initRectangleTranslateY + dragY
-    }*/
-
-
-    // reverse()
   }
 
   onMouseReleased = (mouseEvent: MouseEvent) => {
@@ -79,13 +73,14 @@ class DraggableRectangle(val initX: Double, val initY: Double, initColor: Color)
      }*/
   }
 
-  def reverse() = {
-    // get sibling
-    val children = parent.value.getScene.getChildren.filter(_ != this.delegate)
+  def sibling = {
+    parent.value.getChildrenUnmodifiable.filter(_ != this.delegate)
+  }
 
-    children.foreach {
+  def invertColor() = {
+
+    sibling.foreach {
       case rect: javafx.scene.shape.Rectangle =>
-
         DraggableRectangle.getColorCode(rect.getId).foreach {
           originalColorCode =>
             val originalColor = Color.web(originalColorCode)
@@ -96,8 +91,36 @@ class DraggableRectangle(val initX: Double, val initY: Double, initColor: Color)
               rect.setFill(originalColor)
             }
         }
+      case group: javafx.scene.Group =>
+
+        if (group.getBoundsInParent.intersects(this.delegate.getBoundsInParent)) {
+          group.children.foreach {
+            case rect: javafx.scene.shape.Rectangle =>
+              DraggableRectangle.getColorCode(rect.getId).foreach {
+                originalColorCode =>
+                  val originalColor = Color.web(originalColorCode)
+
+                  rect.setFill(originalColor.invert)
+              }
+
+            case _ =>
+          }
+        } else {
+          group.children.foreach {
+            case rect: javafx.scene.shape.Rectangle =>
+              DraggableRectangle.getColorCode(rect.getId).foreach {
+                originalColorCode =>
+                  val originalColor = Color.web(originalColorCode)
+                  rect.setFill(originalColor)
+              }
+
+            case _ =>
+          }
+        }
+      case _ =>
     }
   }
+
 }
 
 object DraggableRectangle {
