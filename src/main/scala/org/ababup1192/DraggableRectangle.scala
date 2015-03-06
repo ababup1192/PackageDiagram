@@ -1,12 +1,14 @@
 package org.ababup1192
 
+import org.ababup1192.util.ColoredRectangle.ColoredRectangle
 import org.ababup1192.util.Draggable
 
 import scalafx.Includes._
+import scalafx.scene.Cursor
 import scalafx.scene.input.MouseEvent
+import scalafx.scene.layout.StackPane
 import scalafx.scene.paint.Color
 import scalafx.scene.shape.Rectangle
-import scalafx.scene.{Cursor, Group}
 
 class DraggableRectangle(val initX: Double, val initY: Double, initColor: Color) extends Rectangle with Draggable {
   id = s"${hashCode()}:${initColor.toString()}"
@@ -61,28 +63,32 @@ class DraggableRectangle(val initX: Double, val initY: Double, initColor: Color)
           // Preparation
 
           // Reset Color
-          doRectWithColor(this,
-            originalColor =>
-              this.fill = originalColor
-          )
-
-          doRectWithColor(rect,
-            originalColor =>
-              rect.setFill(originalColor)
-          )
-
-          val ration = 2.0
-          rect.setHeight(rect.getHeight * ration)
-          rect.setWidth(rect.getWidth * ration)
-          this.translateRefX() = rect.layoutX() - rect.getWidth + this.getWidth / ration
-          this.translateRefY() = rect.layoutY() + rect.getHeight / ration - this.getHeight / ration
+          this.fill = this.delegate.color
+          rect.fill = rect.color
 
           // Grouping
           val parentChildren = parent.value.getScene.getChildren
-          val group = new Group with Draggable
+          //val stackPane = new StackPane with Draggable
+          //stackPane.setPrefSize(rect.getWidth, rect.getHeight)
 
-          group.children.addAll(rect, this)
-          parentChildren.add(group)
+          val stackPane = new StackPane with Draggable
+          // stackPane.getChildren.addAll(Rectangle(100, 100, Color.Orange), Rectangle(50, 50, Color.Blue))
+
+          val newRect = new Rectangle {
+            height = 200
+            width = 200
+            fill = rect.color
+          }
+
+          val newThis = new Rectangle {
+            height = 100
+            width = 100
+            fill = initColor
+          }
+
+          stackPane.children.addAll(newRect, newThis)
+          parentChildren.removeAll(rect, this)
+          parentChildren.add(stackPane)
         }
       case group: javafx.scene.Group =>
       case _ =>
@@ -101,15 +107,13 @@ class DraggableRectangle(val initX: Double, val initY: Double, initColor: Color)
     sibling.foreach {
       // When target is a Rectangle
       case rect: javafx.scene.shape.Rectangle =>
-        doRectWithColor(rect,
-          originalColor =>
-            if (rect.getBoundsInParent.intersects(this.delegate.getBoundsInParent)) {
-              rect.setFill(originalColor.invert)
-            } else {
-              rect.setFill(originalColor)
+        if (rect.getBoundsInParent.intersects(this.delegate.getBoundsInParent)) {
+          rect.fill = rect.color.invert
+        } else {
+          rect.fill = rect.color
+        }
 
-            }
-        )
+      /*
       // When target is a Group
       case group: javafx.scene.Group =>
 
@@ -118,50 +122,19 @@ class DraggableRectangle(val initX: Double, val initY: Double, initColor: Color)
         if (group.getBoundsInParent.intersects(this.delegate.getBoundsInParent)) {
           doRect(
             rect => {
-              doRectWithColor(rect,
-                originalColor =>
-                  rect.setFill(originalColor.invert)
-              )
+              rect.fill = rect.color.invert
             }
           )
         } else {
           doRect(
             rect => {
-              doRectWithColor(rect,
-                originalColor =>
-                  rect.setFill(originalColor)
-              )
+              rect.fill = rect.color
             }
           )
         }
-    }
-  }
-
-  def doRectWithColor(rectangle: javafx.scene.shape.Rectangle, func: (Color) => Unit): Unit = {
-    DraggableRectangle.getColorCode(rectangle.getId).foreach {
-      originalColorCode =>
-        func(Color.web(originalColorCode))
-    }
-  }
-
-  def doRectInGroup(group: javafx.scene.Group, func: (javafx.scene.shape.Rectangle) => Unit): Unit = {
-    group.children.foreach {
-      case rect: javafx.scene.shape.Rectangle =>
-        func(rect)
+        */
       case _ =>
     }
   }
 }
 
-object DraggableRectangle {
-  def getColorCode(id: String): Option[String] = {
-    val idMatcher = """(\d+).:\[SFX\]0x(\w+)""".r
-    id match {
-      case idMatcher(hash, color) =>
-        Some(color)
-      case _ =>
-        None
-    }
-  }
-
-}
