@@ -36,4 +36,9 @@ trait Draggable extends Node {
     translateRefX() = initTranslateX + dragX
     translateRefY() = initTranslateY + dragY
   }
+
+  def setTranslateRefX(translateX: Double) = translateRefX() = translateX
+
+  def setTranslateRefY(translateY: Double) = translateRefY() = translateY
+
 }

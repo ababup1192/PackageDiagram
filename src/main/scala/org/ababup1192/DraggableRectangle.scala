@@ -68,11 +68,11 @@ class DraggableRectangle(val initX: Double, val initY: Double, initColor: Color)
 
           // Grouping
           val parentChildren = parent.value.getScene.getChildren
-          //val stackPane = new StackPane with Draggable
-          //stackPane.setPrefSize(rect.getWidth, rect.getHeight)
 
           val stackPane = new StackPane with Draggable
-          // stackPane.getChildren.addAll(Rectangle(100, 100, Color.Orange), Rectangle(50, 50, Color.Blue))
+
+          stackPane.setTranslateRefX(rect.x())
+          stackPane.setTranslateRefY(rect.y())
 
           val newRect = new Rectangle {
             height = 200
@@ -87,10 +87,10 @@ class DraggableRectangle(val initX: Double, val initY: Double, initColor: Color)
           }
 
           stackPane.children.addAll(newRect, newThis)
+
           parentChildren.removeAll(rect, this)
           parentChildren.add(stackPane)
         }
-      case group: javafx.scene.Group =>
       case _ =>
     }
   }
