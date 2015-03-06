@@ -34,12 +34,8 @@ object PackageDiagramMain extends JFXApp {
     }
   }
 
-  val group = new Group with Draggable
-
-  group.children.add(new DraggableRectangle(100d, 100d, Color.LightBlue))
-  group.children.add(new DraggableRectangle(300d, 100d, Color.OrangeRed))
-
-  sceneContent += group
+  sceneContent += new DraggableRectangle(100d, 100d, Color.LightBlue)
+  sceneContent += new DraggableRectangle(300d, 100d, Color.OrangeRed)
 
   def createMenu(window: Window, x: Double, y: Double) = new ContextMenu(
     new MenuItem("LightBlue Rectangle") {

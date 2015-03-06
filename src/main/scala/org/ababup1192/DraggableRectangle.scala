@@ -3,10 +3,10 @@ package org.ababup1192
 import org.ababup1192.util.Draggable
 
 import scalafx.Includes._
-import scalafx.scene.Cursor
 import scalafx.scene.input.MouseEvent
 import scalafx.scene.paint.Color
 import scalafx.scene.shape.Rectangle
+import scalafx.scene.{Cursor, Group}
 
 class DraggableRectangle(val initX: Double, val initY: Double, initColor: Color) extends Rectangle with Draggable {
   id = s"${hashCode()}:${initColor.toString()}"
@@ -23,38 +23,75 @@ class DraggableRectangle(val initX: Double, val initY: Double, initColor: Color)
 
   onMousePressed = {
     (mouseEvent: MouseEvent) =>
-      initTranslateX = translateX()
-      initTranslateY = translateY()
-
-      dragAnchorX = mouseEvent.sceneX
-      dragAnchorY = mouseEvent.sceneY
-
-      this.toFront()
-
       fill = initColor
-      invertColor()
+      if (isSingle) {
+        initTranslateX = translateX()
+        initTranslateY = translateY()
+
+        dragAnchorX = mouseEvent.sceneX
+        dragAnchorY = mouseEvent.sceneY
+
+        this.toFront()
+
+        invertColor()
+      }
   }
   onMouseDragged = (mouseEvent: MouseEvent) => {
-
     // Move a rectangle when this object is single.
-    if (parent.value.getStyleClass.toString == "root") {
+    if (isSingle) {
       val dragX = mouseEvent.sceneX - dragAnchorX
       val dragY = mouseEvent.sceneY - dragAnchorY
 
       translateRefX() = initTranslateX + dragX
       translateRefY() = initTranslateY + dragY
 
+      invertColor()
     }
 
-    invertColor()
   }
 
   onMouseReleased = (mouseEvent: MouseEvent) => {
 
+    sibling.foreach {
+      // When target is a Rectangle
+      case rect: javafx.scene.shape.Rectangle =>
+        // Link process
+        if (rect.getBoundsInParent.intersects(this.delegate.getBoundsInParent) && isSingle) {
+
+          // Preparation
+
+          // Reset Color
+          doRectWithColor(this,
+            originalColor =>
+              this.fill = originalColor
+          )
+
+          doRectWithColor(rect,
+            originalColor =>
+              rect.setFill(originalColor)
+          )
+
+          val ration = 2.0
+          rect.setHeight(rect.getHeight * ration)
+          rect.setWidth(rect.getWidth * ration)
+          this.translateRefX() = rect.layoutX() - rect.getWidth + this.getWidth / ration
+          this.translateRefY() = rect.layoutY() + rect.getHeight / ration - this.getHeight / ration
+
+          // Grouping
+          val parentChildren = parent.value.getScene.getChildren
+          val group = new Group with Draggable
+
+          group.children.addAll(rect, this)
+          parentChildren.add(group)
+        }
+      case group: javafx.scene.Group =>
+      case _ =>
+    }
   }
 
-  def sibling = parent.value.getChildrenUnmodifiable.filter(_ != this.delegate)
+  def isSingle = parent.value.getStyleClass.toString == "root"
 
+  def sibling = parent.value.getChildrenUnmodifiable.filter(_ != this.delegate)
 
   /**
    * invert a Rectangle and Rectangles in Group
@@ -126,4 +163,5 @@ object DraggableRectangle {
         None
     }
   }
+
 }
