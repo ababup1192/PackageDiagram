@@ -34,7 +34,7 @@
       <file leaf-file-name="DraggableRectangle.scala" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/org/ababup1192/DraggableRectangle.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7904884" vertical-offset="585" max-vertical-offset="2190">
+            <state vertical-scroll-proportion="0.53984576" vertical-offset="780" max-vertical-offset="2190">
               <caret line="80" column="10" selection-start-line="80" selection-start-column="10" selection-end-line="80" selection-end-column="10" />
               <folding>
                 <element signature="e#24#84#0" expanded="true" />
@@ -635,12 +635,12 @@
       <workItem from="1425612468375" duration="411000" />
       <workItem from="1425615142994" duration="5052000" />
       <workItem from="1425620685320" duration="1898000" />
-      <workItem from="1425635045472" duration="6059000" />
+      <workItem from="1425635045472" duration="6100000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55528000" />
+    <option name="totallyTimeSpent" value="55569000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -1100,7 +1100,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/org/ababup1192/DraggableRectangle.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7904884" vertical-offset="585" max-vertical-offset="2190">
+        <state vertical-scroll-proportion="0.53984576" vertical-offset="780" max-vertical-offset="2190">
           <caret line="80" column="10" selection-start-line="80" selection-start-column="10" selection-end-line="80" selection-end-column="10" />
           <folding>
             <element signature="e#24#84#0" expanded="true" />
