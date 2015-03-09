@@ -1,4 +1,4 @@
-package org.ababup1192.util
+package org.ababup1192.view
 
 import scalafx.Includes._
 import scalafx.beans.property.DoubleProperty
@@ -36,9 +36,4 @@ trait Draggable extends Node {
     translateRefX() = initTranslateX + dragX
     translateRefY() = initTranslateY + dragY
   }
-
-  def setTranslateRefX(translateX: Double) = translateRefX() = translateX
-
-  def setTranslateRefY(translateY: Double) = translateRefY() = translateY
-
 }

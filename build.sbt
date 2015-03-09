@@ -5,9 +5,9 @@ version := "1.0"
 scalaVersion := "2.11.5"
 
 // Set the main Scala source directory to be <base>/src
-scalaSource in Compile <<= baseDirectory(_ / "src")
+scalaSource in Compile <<= baseDirectory(_ / "src/main/scala")
 
-resourceDirectory in Compile <<= baseDirectory(_ / "src")
+resourceDirectory in Compile <<= baseDirectory(_ / "src/main/resource")
 
 // Append -deprecation to the options passed to the Scala compiler
 scalacOptions += "-deprecation"
