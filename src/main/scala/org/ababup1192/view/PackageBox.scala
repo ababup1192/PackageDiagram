@@ -2,19 +2,16 @@ package org.ababup1192.view
 
 import scalafx.collections.ObservableBuffer
 import scalafx.geometry.{Insets, Pos}
-import scalafx.scene.{Parent, Cursor}
 import scalafx.scene.control.Label
-import scalafx.scene.layout.{StackPane, VBox}
+import scalafx.scene.layout.{HBox, StackPane, VBox}
 import scalafx.scene.paint.Color
 import scalafx.scene.shape.Rectangle
-import scalafx.stage.Stage
 
 /**
  * PackageBox Class
  * @param packageName Package display name
  */
 class PackageBox(packageName: String) extends VBox with Draggable {
-
   private[this] val topBox = new Rectangle with BasePackageBox {
     width = 30
     height = 20
